@@ -11,9 +11,20 @@
         <button onclick="myFunction()">Click me</button>
         <script>
             function myFunction() {
-                alert(
-                    "Hello, this is an inline function!"
-                );
+                const xhttpr = new XMLHttpRequest();
+                alert("Start");
+                xhttpr.open('GET', 'https://pbkh-ehan-site.qa.spiral-site.net/_program/custom_api_1', true);
+
+                xhttpr.send();
+
+                xhttpr.onload = ()=> {
+                if (xhttpr.status === 200) {
+                    const response = JSON.parse(xhttpr.response);
+                    alert("Success");
+                } else {
+                    alert("Fail");
+                }
+                };
             }
         </script>
     </body>
