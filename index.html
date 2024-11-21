@@ -11,20 +11,16 @@
         <button onclick="myFunction()">Click me</button>
         <script>
             function myFunction() {
-                const xhttpr = new XMLHttpRequest();
-                alert("Start");
-                xhttpr.open('GET', 'https://pbkh-ehan-site.qa.spiral-site.net/_program/custom_api_1', true);
-
-                xhttpr.send();
-
-                xhttpr.onload = ()=> {
-                if (xhttpr.status === 200) {
-                    const response = JSON.parse(xhttpr.response);
-                    alert("Success");
-                } else {
-                    alert("Fail");
+                var xhrr = new XMLHttpRequest();
+                xhrr.onreadystatechange = function() {
+                    if (xhrr.readyState == XMLHttpRequest.DONE) {
+                        console.log(xhrr.responseText);
+                    }
                 }
-                };
+                xhrr.open('GET', 'https://kimheang-account-customapi.qa.spiral-site.net/_program/curl', true);
+                xhrr.withCredentials = true;
+                xhrr.setRequestHeader("X-acountId", 1);
+                xhrr.send(null);
             }
         </script>
     </body>
