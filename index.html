@@ -8,7 +8,7 @@
     </head>
     <body>
         <h2>Function call using HTML</h2>
-        <button onclick="myFunction()">Click OK</button>
+        <button onclick="myFunction()">Click OK3</button>
         <script>
             function myFunction() {
                 var xhrr = new XMLHttpRequest();
@@ -17,7 +17,7 @@
                         console.log(xhrr.responseText);
                     }
                 }
-                xhrr.open('GET', 'http://localhost:9095/_program/custom_api', true);
+                xhrr.open('GET', 'http://pbkhungehan-main-test.spiral-site.local:8080/_program/custom_api?', true);
                 xhrr.withCredentials = true;
                 xhrr.setRequestHeader("X-acountId", 1);
                 xhrr.send(null);
