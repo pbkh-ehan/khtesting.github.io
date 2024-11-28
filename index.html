@@ -8,7 +8,7 @@
     </head>
     <body>
         <h2>Function call using HTML</h2>
-        <button onclick="myFunction()">22222</button>
+        <button onclick="myFunction()">33333</button>
         <script>
             function myFunction() {
                 var xhrr = new XMLHttpRequest();
@@ -17,7 +17,7 @@
                         console.log(xhrr.responseText);
                     }
                 }
-                xhrr.open('OPTIONS', 'https://pbkh-ehan-site.qa.spiral-site.net/_program/custom_api_1', true);
+                xhrr.open('POST', 'https://pbkh-ehan-site.qa.spiral-site.net/_program/custom_api_1', true);
                 xhrr.withCredentials = true;
                 xhrr.setRequestHeader("Authorization", "Basic XXXXXXXXXXXXXX");
                 xhrr.send(null);
