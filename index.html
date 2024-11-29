@@ -19,7 +19,7 @@
                 }
                 xhrr.open('POST', 'https://pbkh-ehan-site.qa.spiral-site.net/_program/custom_api_1', true);
                 // xhrr.withCredentials = true;
-                // xhrr.setRequestHeader("X-account", "1");
+                xhrr.setRequestHeader("X-account", "1");
                 xhrr.setRequestHeader("Authorization", "Basic dGVzdHRlc3Q6SG9nZWZvb2JhcjEyMzQ=");
                 xhrr.send(null);
             }
