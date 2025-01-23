@@ -55,28 +55,6 @@
     <h2>Response Output:</h2>
     <div id="output">Response will appear here...</div>
 
-
-    <h1>Products Table</h1>
-    <table id="productsTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Discount (%)</th>
-                <th>Rating</th>
-                <th>Stock</th>
-                <th>Brand</th>
-                <th>Thumbnail</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data will be populated here -->
-        </tbody>
-    </table>
-
     <script>
         document.getElementById('submitButton').addEventListener('click', async () => {
             const url = document.getElementById('urlInput').value;
@@ -96,46 +74,6 @@
                 output.textContent = `Error: ${error.message}`;
             }
         });
-
-        // URL of the API
-        const apiUrl = 'YOUR_API_URL_HERE';
-
-        // Fetch data and populate the table
-        async function fetchProducts() {
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                const products = data.data.Result.products;
-
-                const tableBody = document.querySelector('#productsTable tbody');
-
-                // Clear existing rows
-                tableBody.innerHTML = '';
-
-                // Populate rows
-                products.forEach(product => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${product.id}</td>
-                        <td>${product.title}</td>
-                        <td>${product.description}</td>
-                        <td>${product.category}</td>
-                        <td>$${product.price}</td>
-                        <td>${product.discountPercentage}</td>
-                        <td>${product.rating}</td>
-                        <td>${product.stock}</td>
-                        <td>${product.brand}</td>
-                        <td><img src="${product.thumbnail}" alt="${product.title} Thumbnail"></td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        }
-
-        // Load products when the page is ready
-        window.onload = fetchProducts;
     </script>
 </body>
 </html>
