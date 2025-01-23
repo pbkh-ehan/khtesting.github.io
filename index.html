@@ -1,29 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>
-            Call JavaScript Function 
-        </title>
-    </head>
-    <body>
-        <h2>Function call using HTML</h2>
-        <button onclick="myFunction()">eee</button>
-        <script>
-            function myFunction() {
-                var xhrr = new XMLHttpRequest();
-                xhrr.onreadystatechange = function() {
-                    if (xhrr.readyState == XMLHttpRequest.DONE) {
-                        console.log(xhrr.responseText);
-                    }
-                }
-                xhrr.open('POST', 'https://pbkhungehan-main-test.dev.spiral-site.net/_program/customApi?_spiralTestAuth=3a2de2e4412ad60fe57560e6e4e5b2eec6648121', true);
-                // xhrr.withCredentials = true;
-                // xhrr.setRequestHeader("X-account", "1");
-                xhrr.setRequestHeader("Content-type", "application/json");
-                // xhrr.setRequestHeader("Authorization", "Basic dGVzdHRlc3Q6SG9nZWZvb2JhcjEyMzQ=");
-                xhrr.send(null);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Request Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        #output {
+            white-space: pre-wrap;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f4f4f4;
+            text-align: left;
+        }
+        img {
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>URL Request Form</h1>
+    <form id="requestForm">
+        <label for="urlInput">Enter URL:</label><br>
+        <input type="url" id="urlInput" name="url" placeholder="https://example.com" required style="width: 100%;"><br><br>
+
+        <label for="methodSelect">Choose Method:</label><br>
+        <select id="methodSelect" name="method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+        </select><br><br>
+
+        <button type="button" id="submitButton">Request URL</button>
+    </form>
+
+    <h2>Response Output:</h2>
+    <div id="output">Response will appear here...</div>
+
+
+    <h1>Products Table</h1>
+    <table id="productsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Discount (%)</th>
+                <th>Rating</th>
+                <th>Stock</th>
+                <th>Brand</th>
+                <th>Thumbnail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('submitButton').addEventListener('click', async () => {
+            const url = document.getElementById('urlInput').value;
+            const method = document.getElementById('methodSelect').value;
+            const output = document.getElementById('output');
+
+            if (!url) {
+                output.textContent = "Please enter a valid URL.";
+                return;
             }
-        </script>
-    </body>
+
+            try {
+                const response = await fetch(url, { method });
+                const text = await response.text();
+                output.textContent = text;
+            } catch (error) {
+                output.textContent = `Error: ${error.message}`;
+            }
+        });
+
+        // URL of the API
+        const apiUrl = 'YOUR_API_URL_HERE';
+
+        // Fetch data and populate the table
+        async function fetchProducts() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const products = data.data.Result.products;
+
+                const tableBody = document.querySelector('#productsTable tbody');
+
+                // Clear existing rows
+                tableBody.innerHTML = '';
+
+                // Populate rows
+                products.forEach(product => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${product.id}</td>
+                        <td>${product.title}</td>
+                        <td>${product.description}</td>
+                        <td>${product.category}</td>
+                        <td>$${product.price}</td>
+                        <td>${product.discountPercentage}</td>
+                        <td>${product.rating}</td>
+                        <td>${product.stock}</td>
+                        <td>${product.brand}</td>
+                        <td><img src="${product.thumbnail}" alt="${product.title} Thumbnail"></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+
+        // Load products when the page is ready
+        window.onload = fetchProducts;
+    </script>
+</body>
 </html>
