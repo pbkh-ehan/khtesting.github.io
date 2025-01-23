@@ -1,72 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Request Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        #output {
-            white-space: pre-wrap;
-            border: 1px solid #ccc;
-            padding: 10px;
-            background: #f9f9f9;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-    </style>
-</head>
-<body>
-    <h1>URL Request Form</h1>
-    <form id="requestForm">
-        <label for="urlInput">Enter URL:</label><br>
-        <input type="url" id="urlInput" name="url" placeholder="https://example.com" required style="width: 100%;"><br><br>
-
-        <label for="methodSelect">Choose Method:</label><br>
-        <select id="methodSelect" name="method">
-            <option value="GET">GET</option>
-            <option value="POST">POST</option>
-        </select><br><br>
-
-        <button type="button" id="submitButton">Request URL</button>
-    </form>
-
-    <h2>Response Output:</h2>
-    <div id="output">Response will appear here...</div>
-
-    <script>
-        document.getElementById('submitButton').addEventListener('click', async () => {
-            const url = document.getElementById('urlInput').value;
-            const method = document.getElementById('methodSelect').value;
-            const output = document.getElementById('output');
-
-            if (!url) {
-                output.textContent = "Please enter a valid URL.";
-                return;
-            }
-
-            try {
-                const response = await fetch(url, { method });
-                const text = await response.text();
-                output.textContent = text;
-            } catch (error) {
-                output.textContent = `Error: ${error.message}`;
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <title>
@@ -93,4 +26,4 @@
             }
         </script>
     </body>
-</html> -->
+</html>
